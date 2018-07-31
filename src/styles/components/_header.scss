@@ -1,6 +1,12 @@
 .menu.selected {
-    color: tomato;
     font-weight: bolder;
-    border-bottom: 2px solid tomato;
     text-decoration: none;
+}
+
+.navbar-brand {
+    margin-right: 0;
+}
+
+.dropdown-box{
+    min-width: 7rem;
 }

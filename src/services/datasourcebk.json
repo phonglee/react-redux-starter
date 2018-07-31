@@ -1,0 +1,94 @@
+[  
+    {  
+       "name":"Contact",
+       "columns":[
+          {"id": "id", "value" : "ID"},
+          {"id": "email", "value" : "Email"},
+          {"id": "phone", "value" : "Phone"},
+          {"id": "name", "value" : "Name"},
+          {"id": "title", "value" : "Title"}
+       ],
+       "selected_columns":[
+          {"id": "name", "value" : "Name"},
+          {"id": "title", "value" : "Title"}
+       ],
+       "data":[  
+          {  
+             "id":"1",
+             "name":"Stella Payne Diaz",
+             "title": "Director",
+             "email": "stella@kms-technology.com",
+             "phone": "(+84) 932060768"
+          },
+          {  
+             "id":"2",
+             "name":"Luke Warm",
+             "title": "Director",
+             "email": "lukewarm@kms-technology.com",
+             "phone": "(+84) 932060768"
+          },
+          {  
+             "id":"3",
+             "name":"Meg Meehan Hofaz",
+             "title": "Developer",
+             "email": "meg@kms-technology.com",
+             "phone": "(+84) 932060768"
+          },
+          {  
+             "id":"4",
+             "name":"Peggy Flaming",
+             "title": "Tester",
+             "email": "peggy@kms-technology.com",
+             "phone": "(+84) 932060768"
+          },
+          {  
+             "id":"5",
+             "name":"John Evan",
+             "title": "Developer",
+             "email": "john@kms-technology.com",
+             "phone": "(+84) 932060768"
+          }
+          
+       ]
+    },
+    {  
+       "name":"Product",
+       "columns":[
+            {"id": "id", "value" : "ID"},
+            {"id": "name", "value" : "Name"},
+            {"id": "price", "value" : "Price"}
+        ],
+        "selected_columns":[
+            {"id": "date_expire", "value" : "Date Expire"},
+            {"id": "source", "value" : "Source"}
+        ],
+       "data":[  
+          {  
+             "id":"1",
+             "name":"Coffee",
+             "price": "180$"
+          },
+          {  
+             "id":"2",
+             "name":"Pepper",
+             "price": "120$"
+          },
+          {  
+             "id":"3",
+             "name":"Banana",
+             "price": "Developer"
+          },
+          {  
+             "id":"4",
+             "name":"Peggy Flaming",
+             "price": "Tester"
+          },
+          {  
+             "id":"5",
+             "name":"Meg Meehan Hofaz",
+             "price": "Developer"
+          }
+          
+       ]
+    }
+ ]

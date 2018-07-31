@@ -1,0 +1,35 @@
+[  
+    {  
+       "name":"Contact",
+       "columns":[
+          {"id": "id", "value" : "ID"},
+          {"id": "name", "value" : "Name"},          
+          {"id": "title", "value" : "Title"},
+          {"id": "email", "value" : "Email"},
+          {"id": "phone", "value" : "Phone"}          
+       ],
+       "data":[  
+           ["1", "Stella Payne Diaz", "Director", "stella@kms-technology.com", "(+84) 932060768"],
+           ["2", "Luke Warm", "Director", "lukewarm@kms-technology.com", "(+84) 932060768"],
+           ["3", "Meg Meehan Hofaz", "Developer", "meg@kms-technology.com", "(+84) 932060768"],
+           ["4", "Peggy Flaming", "Tester", "peggy@kms-technology.com", "(+84) 932060768"],
+           ["5", "John Evan", "Developer", "john@kms-technology.com", "(+84) 932060768"],
+           ["6", "Teslla", "Developer", "teslla@kms-technology.com", "(+84) 932060768"],
+           ["7", "Owen", "Tester", "owen@kms-technology.com", "(+84) 932060768"],
+           ["8", "David Bekam", "Project Manager", "david@kms-technology.com", "(+84) 932060768"]
+       ]
+    },
+    {  
+       "name":"Product",
+       "columns":[
+            {"id": "id", "value" : "ID"},
+            {"id": "name", "value" : "Name"},
+            {"id": "price", "value" : "Price"}
+        ],
+       "data":[
+           ["1", "Coffee", "10$"],
+           ["2", "Pepper", "10$"],
+           ["3", "Banana", "5$"]
+       ]
+    }
+ ]

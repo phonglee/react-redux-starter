@@ -1,0 +1,53 @@
+.dashboard {
+    border-bottom: 2px solid #1F5181;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+.dashboard-title {
+    font-weight: bold;
+    color: #1F5181;
+}
+
+.layout-full {
+    width: 20px;
+    height: 20px;
+    background-color: gray
+}
+
+.layout-half {
+    width: 10px;
+    height: 20px;
+    background-color: gray;
+    float: left;
+    margin-right: 1px;
+}
+.layout-quater {
+    width: 7px;
+    height: 20px;
+    background-color: gray;
+    float: left;
+    margin-right: 1px;
+}
+
+.layout-threequater {
+    width: 14px;
+    height: 20px;
+    background-color: gray;
+    float: left;
+    margin-right: 1px;
+}
+.layout-halfhalf {
+    width: 5px;
+    height: 20px;
+    background-color: gray;
+    float: left;
+    margin-right: 1px;
+}
+
+.break-widget {
+    word-wrap: break-word;
+}
+
+.widget-padding {
+    padding: 0 0 0 10px;
+}

@@ -13,7 +13,4 @@ import { AppReducer } from '../reducers/AppReducer';
 
 
 // CONFIGURE STORE
-
-export const createAppStore = () => {
-    return createStore(AppReducer, applyMiddleware(thunk, promiseMiddleware()));
-};
+export const store = createStore(AppReducer, applyMiddleware(thunk, promiseMiddleware()));
