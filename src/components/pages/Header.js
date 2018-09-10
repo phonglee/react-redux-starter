@@ -2,12 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+//import { bindActionCreators } from 'redux';
 import { NavLink } from 'react-router-dom';
 
 // IMPORT PROJECT REFERENCES
 
-import { fetchZipCodes } from '../state/actions/ZipCodeActions';
 import {logout} from '../../services/LoginService';
 import {editLayout} from '../../services/DashboardService';
 
@@ -81,12 +80,8 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({ fetchZipCodes }, dispatch)
-);
-
-const nav = connect(mapStateToProps, mapDispatchToProps)(Header);
-//const nav = connect(mapDispatchToProps)(Header);
+const nav = connect(mapStateToProps)(Header);
+// const nav = connect(mapDispatchToProps)(Header);
 
 
 // EXPORT COMPONENT

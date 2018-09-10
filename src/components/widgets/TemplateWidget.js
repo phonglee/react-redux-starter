@@ -3,8 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // IMPORT PROJECT REFERENCES
-import {WidgetOption, WidgetType} from '../state/reducers/WidgetReducer';
+import {WidgetOption, WidgetType} from '../state/reducers/DashboardReducer';
 import {DatatableWidget} from './DatatableWidget';
+import {TextWidget} from './TextWidget';
+import {TodoListWidget} from './todolist';
+import {OrgChartWidget} from './orgchart';
 
 export const TemplateWidget = ({widget, deleteWidget, updateTitle, updateWidth, updateHeight, updateType, setFullScreen, updateSetting,
     dragColumn, dropColumn, allowDropColumn, changeDS, changePageIndex}) => (
@@ -19,7 +22,7 @@ export const TemplateWidget = ({widget, deleteWidget, updateTitle, updateWidth, 
                 </span>
             </div>
             <div className="card-body">
-                {widget.editMode &&
+                {widget.editMode && 
                     <div className="row">
                         <div className="container-fluid">
                             <label className="widget-title" htmlFor="title">Widget title:</label>
@@ -46,7 +49,7 @@ export const TemplateWidget = ({widget, deleteWidget, updateTitle, updateWidth, 
                 {(() => {
                     switch (widget.widgetType) {
                         case WidgetType.TEXT_WIDGET:
-                            return <div>Text</div>;
+                            return <TextWidget widget={widget} />;
                         case WidgetType.DATATABLE_WIDGET:
                             return <DatatableWidget  
                                 widget={widget} 
@@ -57,37 +60,17 @@ export const TemplateWidget = ({widget, deleteWidget, updateTitle, updateWidth, 
                                 changePageIndex = {changePageIndex}
                             />;
                         case WidgetType.ORGCHART_WIDGET:
-                            return <div>OrgChart</div>;
+                            return <OrgChartWidget widget={widget} changeDS={changeDS}/>;
                         case WidgetType.TODOLIST_WIDGET:
-                            return <div>TodoList</div>;
+                            return <TodoListWidget widget={widget}/>;
                         case WidgetType.SIMPLECHART_WIDGET:
                             return <div>Simple Chart</div>;
                         case WidgetType.STOCKSTICKER_WIDGET:
                             return <div>Stock Sticker</div>;
                         default:
-                            return <div>Choose...</div>;
+                            return <div>Please select widget type!</div>;
                     }
                 })()}
-                {/* <div className={widget.widgetType !== WidgetType.CHOOSE ? 'row widget-content' : 'row'}>
-                    {(() => {
-                        switch (widget.widgetType) {
-                            case WidgetType.TEXT_WIDGET:
-                                return <div>Text</div>;
-                            case WidgetType.DATATABLE_WIDGET:
-                                return <DatatableWidget widget={widget}/>;
-                            case WidgetType.ORGCHART_WIDGET:
-                                return <div>OrgChart</div>;
-                            case WidgetType.TODOLIST_WIDGET:
-                                return <div>TodoList</div>;
-                            case WidgetType.SIMPLECHART_WIDGET:
-                                return <div>Simple Chart</div>;
-                            case WidgetType.STOCKSTICKER_WIDGET:
-                                return <div>Stock Sticker</div>;
-                            default:
-                                return <div>Choose...</div>;
-                        }
-                    })()}
-                </div> */}
             </div>
         </div>
     </div>    

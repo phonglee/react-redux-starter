@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // IMPORT PROJECT REFERENCES
-import {WidgetType} from '../state/reducers/WidgetReducer';
+import {WidgetType} from '../state/reducers/DashboardReducer';
 
 export const DatatableWidget = ({widget, dragColumn, dropColumn, allowDropColumn, changeDS, changePageIndex}) => (
     <div className="row">

@@ -1,7 +1,8 @@
 import { store } from '../components/state/stores/AppStore';
-import {DashboardAction} from '../components/state/reducers/DashboardReducer';
+import RichTextEditor from 'react-rte';
+import {DashboardAction, WidgetType} from '../components/state/reducers/DashboardReducer';
 import datasource from '../services/datasource.json';
-import {WidgetType} from '../components/state/reducers/WidgetReducer';
+import contacts from '../services/contacts.json';
 
 export const editLayout = (edit) => {
     store.dispatch({
@@ -67,11 +68,15 @@ export const updateType = (widgetIndex, widgetId, widgetType) => {
     let rowPerPage = 5;
     let pagesDisplayed = 3;
     let totalRow = 0;
+    let textEditor =  RichTextEditor.createEmptyValue();
     if (widgetType === WidgetType.DATATABLE_WIDGET) {
         widgetDatasource = datasource;
         totalRow = widgetDatasource[0].data.length; 
         pagesDisplayed = Math.ceil(totalRow/rowPerPage);
         columns = widgetDatasource[0].columns;
+    } else if (widgetType === WidgetType.ORGCHART_WIDGET) {
+        widgetDatasource = contacts;
+        buildEmployesTree(widgetDatasource);
     }
     store.dispatch({
         widgetIndex: widgetIndex,
@@ -85,8 +90,21 @@ export const updateType = (widgetIndex, widgetId, widgetType) => {
         rowEnd: rowPerPage,
         rowPerPage: rowPerPage,
         totalRow: totalRow,
-        pagesDisplayed: pagesDisplayed        
+        pagesDisplayed: pagesDisplayed,
+        textEditor: textEditor
     });
+};
+
+const buildEmployesTree = (contacts) => {    
+    // build employees for each emp
+    contacts.forEach(emp => {
+        emp.employees = contacts.filter((contact) => contact.superiorId === emp.id);
+        emp.name = emp.firstName + ' ' + emp.lastName;
+        emp.toggle = false;
+    });
+
+    let rootEmp = contacts.find((emp) => !emp.superiorId);    
+    return rootEmp;
 };
 
 export const setFullScreen = (widgetIndex, widgetId, fullScreen) => {
@@ -116,26 +134,38 @@ export const moveColumnDS = (widgetIndex, widgetId, columnId) => {
     });
 };
 
-export const updateDS = (widgetIndex, widgetId, activeDS) => {
-    let ds = datasource.find(ds => {return ds.name === activeDS;});
+export const updateDS = (widgetIndex, widgetId, widgetType, activeDS) => {
     
-    let totalRow = ds.data.length; 
-    let rowPerPage = totalRow > 5 ? 5 : totalRow;
-    let pagesDisplayed = Math.ceil(totalRow/rowPerPage);
+    if (widgetType === WidgetType.DATATABLE_WIDGET) {
+        let ds = datasource.find(ds => {return ds.name === activeDS;});
+    
+        let totalRow = ds.data.length; 
+        let rowPerPage = totalRow > 5 ? 5 : totalRow;
+        let pagesDisplayed = Math.ceil(totalRow/rowPerPage);
 
-    store.dispatch({
-        widgetIndex: widgetIndex,
-        type: DashboardAction.UPDATE_DATASOURCE,
-        id: widgetId,
-        activeDS: activeDS,
-        columns: ds.columns,
-        currentPage: 1,
-        rowStart: 0,
-        rowEnd: rowPerPage,
-        rowPerPage: rowPerPage,
-        totalRow: totalRow,
-        pagesDisplayed: pagesDisplayed
-    });
+        store.dispatch({
+            widgetIndex: widgetIndex,
+            type: DashboardAction.UPDATE_DATASOURCE,
+            id: widgetId,
+            activeDS: activeDS,
+            columns: ds.columns,
+            currentPage: 1,
+            rowStart: 0,
+            rowEnd: rowPerPage,
+            rowPerPage: rowPerPage,
+            totalRow: totalRow,
+            pagesDisplayed: pagesDisplayed
+        });
+    } else if (widgetType === WidgetType.ORGCHART_WIDGET) {
+        store.dispatch({
+            widgetIndex: widgetIndex,
+            type: DashboardAction.UPDATE_DATASOURCE,
+            id: widgetId,
+            activeDS: activeDS
+        });
+    }
+
+    
 };
 
 export const changePageIndex = (widgetIndex, widgetId, currentPage) => {
@@ -144,5 +174,14 @@ export const changePageIndex = (widgetIndex, widgetId, currentPage) => {
         type: DashboardAction.CHANGE_PAGE_DATASOURCE,
         id: widgetId,
         currentPage: currentPage
+    });
+};
+
+export const updateTextEditor = (widgetIndex, widgetId, textEditor) => {
+    store.dispatch({
+        widgetIndex: widgetIndex,
+        type: DashboardAction.UPDATE_TEXT_EDITOR,
+        id: widgetId,
+        textEditor: textEditor
     });
 };

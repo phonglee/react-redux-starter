@@ -1,0 +1,238 @@
+
+.tree {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;    
+}
+.tree ul {    
+    position: relative;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    margin: 0;
+    padding: 20px 0 0 0;
+}
+.tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;    
+}
+/*We will use ::before and ::after to draw the connectors*/
+.tree li::before, .tree li::after {
+    content:'';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 2px solid #ccc;
+    width: 50%;
+    height: 20px;
+}
+.tree li:after {
+    right: auto;
+    left: 50%;
+    border-left: 2px solid #ccc;
+}
+/*We need to remove left-right connectors from elements without
+any siblings*/
+.tree li:only-child::after, .tree li:only-child::before {
+    display: none;
+}
+/*Remove space from the top of single children*/
+.tree li:only-child {
+    padding-top: 0;
+}
+/*Remove left connector from first child and
+right connector from last child*/
+.tree li:first-child::before, .tree li:last-child::after {
+    border: 0 none;
+}
+/*Adding back the vertical connector to the last nodes*/
+.tree li:last-child::before {
+    border-right: 2px solid #ccc;
+    border-radius: 0 5px 0 0;
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+}
+.tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+    -webkit-border-radius: 5px 0 0 0;
+    -moz-border-radius: 5px 0 0 0;
+}
+/*Time to add downward connectors from parents*/
+.tree ul ul::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 2px solid #ccc;
+    width: 0;
+    height: 20px;
+    margin-left: -1px;
+}
+.tree li a {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    font-size: 11px;
+    display: inline-flex;
+    border-radius: 5px;
+    text-align: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.emp-card {
+    position: relative;
+    border: 2px solid #ccc;
+    padding: 5px 10px;
+    color: #666;
+    font-family: arial, verdana, tahoma;
+    display: inline-flex;
+    border-radius: 5px;
+    text-align: left;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.card-avatar {
+    height: 90px;
+    width: 90px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+}
+
+.card-title {
+    background-color: #14B1E7;
+    font-size: 11px;
+    color: white;
+}
+.card-id {
+    float: right;
+    margin-right: 3px;
+}
+.emp-detail {
+    margin: 0 10px;
+    width: 130px;
+}
+
+.emp-detail span {
+    color: #14B1E7;
+    font-weight: bold;
+}
+
+.detail-title {
+    font-style: italic;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.detail-option {
+    width: 120px;
+    border-color: #14B1E7;
+}
+
+.detail-name {
+    text-decoration: underline;
+    color: #14B1E7;
+}
+
+.detail-email {
+    font-style: italic;
+    margin: 10px 0;
+    font-size: 11px;
+}
+
+.detail-edit {
+    border-bottom-style: dotted;
+    border-bottom-color: #14B1E7;
+}
+
+.avatar-edit {
+    cursor: pointer;
+    height: 84px;
+    width: 84px;
+    border-style: dotted;
+    border-color: #14B1E7;
+}
+
+.emp-collapse {
+    z-index: 1;
+    cursor: pointer;
+    position: absolute;
+    margin: 122px 0 0 113px;
+}
+
+.icons {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.hide-content {
+    display: none;
+}
+.visibility {
+    visibility: hidden;
+}
+
+/*Time for some hover effects*/
+/*We will apply the hover effect the the lineage of the element also*/
+.tree li a:hover, .tree li a:hover+ul li a {
+    background: #c8e4f8;
+    color: #000;
+    border: 1px solid #94a0b4;
+}
+/*Connector styles on hover*/
+.tree li a:hover+ul li::after, .tree li a:hover+ul li::before, .tree li a:hover+ul::before, .tree li a:hover+ul ul::before {
+    border-color: #94a0b4;
+}
+li a.just-line {
+    display: none;
+}
+a.just-line + ul {
+    padding-top: 74px;
+}
+a.just-line + ul:before {
+    height: 74px;
+}
+
+
+
+/* The heart of the matter */
+.org-chart {
+    align-content: center;
+    white-space: nowrap;
+}
+
+.org-chart > .row {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: inline-block;
+  }
+  .org-chart > .row > .col-xs-4 {
+    display: inline-block;
+    float: none;
+  }
+  
+  /* Decorations */
+  .col-xs-4 { color: #fff; font-size: 48px; padding-bottom: 20px; padding-top: 18px; width: 33.33333333%;}
+  .col-xs-4:nth-child(3n+1) { background: #c69; }
+  .col-xs-4:nth-child(3n+2) { background: #9c6; }
+  .col-xs-4:nth-child(3n+3) { background: #69c; }

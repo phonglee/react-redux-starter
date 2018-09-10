@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // IMPORT PROJECT REFERENCES
-import { Header } from '../Header/Header';
-//import { Widget } from '../widgets/widget';
+import { Header } from './Header';
 import {Layout} from '../widgets/Layout';
 import {TemplateWidget} from '../widgets/TemplateWidget';
 import {NewWidget} from '../widgets/NewWidget';
@@ -106,9 +105,9 @@ class DashboardPage extends Component {
         e.preventDefault();
     }
 
-    onChangeDS(e, widgetIndex, widgetId) {        
+    onChangeDS(e, widgetIndex, widgetId, widgetType) {        
         e.preventDefault();
-        updateDS(widgetIndex, widgetId, e.currentTarget.value);
+        updateDS(widgetIndex, widgetId, widgetType, e.currentTarget.value);
     }
 
     onChangePageIndex(e, widgetIndex, widgetId) {
@@ -118,13 +117,6 @@ class DashboardPage extends Component {
             changePageIndex(widgetIndex, widgetId, parseInt(e.currentTarget.value));
         }         
     }
-
-    // componentDidMount() {
-    //     console.log(datasource);
-    // }
-    // componentWillMount() {
-    //     console.log(this);
-    // }
 
     render() {
         console.log(this.props);
@@ -150,7 +142,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -167,7 +159,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -184,7 +176,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -211,7 +203,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -228,7 +220,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -250,7 +242,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -262,14 +254,124 @@ class DashboardPage extends Component {
                     }
                     {this.props.activeLayout === DashboardLayout.DASHBOARD_TWO_COLUMN_RIGHT &&
                         <div className="row">
-                            <div className="col-4">col4</div>
-                            <div className="col-8">col8</div>
+                            <div className="col-4">
+                                {this.props.widgets1.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="1"/>}
+                            </div>
+                            <div className="col-8">
+                                {this.props.widgets3.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.widgets2.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="2"/>}
+                            </div>
                         </div>
                     }
                     {this.props.activeLayout === DashboardLayout.DASHBOARD_TWO_COLUMN_LEFT &&
                         <div className="row">
-                            <div className="col-8">col8</div>
-                            <div className="col-4">col4</div>
+                            <div className="col-8">
+                                {this.props.widgets1.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.widgets3.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="1"/>}
+                            </div>
+                            <div className="col-4">
+                                {this.props.widgets2.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="2"/>}
+                            </div>
                         </div>
                     }
                     {this.props.activeLayout === DashboardLayout.DASHBOARD_THREE_COLUMN &&
@@ -288,7 +390,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -310,7 +412,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -332,7 +434,7 @@ class DashboardPage extends Component {
                                             dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
                                             dropColumn = {e => this.onDropColumn(e)}
                                             allowDropColumn = {e => this.onAllowDropColumn(e)}
-                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id)}
+                                            changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
                                             changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
                                             key={widget.id} 
                                             widget={widget}/>;
@@ -344,9 +446,66 @@ class DashboardPage extends Component {
                     }
                     {this.props.activeLayout === DashboardLayout.DASHBOARD_THREE_COLUMN_MIDDLE &&
                         <div className="row">
-                            <div className="col-3">col3</div>
-                            <div className="col-6">col6</div>
-                            <div className="col-3">col3</div>
+                            <div className="col-3">
+                                {this.props.widgets1.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="1"/>}
+                            </div>
+                            <div className="col-6">
+                                {this.props.widgets2.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="2"/>}
+                            </div>
+                            <div className="col-3">
+                                {this.props.widgets3.map( widget => { 
+                                    return <TemplateWidget 
+                                        deleteWidget={() => this.onDeleteWidget(widget.widgetIndex, widget.id)}
+                                        updateTitle={(e) => this.onUpdateWidgetTitle(e, widget.widgetIndex, widget.id)}
+                                        updateWidth={(e) => this.onUpdateWidgetWidth(e, widget.widgetIndex, widget.id)}
+                                        updateHeight={(e) => this.onUpdateWidgetHeight(e, widget.widgetIndex, widget.id)}
+                                        updateType={(e) => this.onUpdateWidgetType(e, widget.widgetIndex, widget.id)}
+                                        setFullScreen = {(e) => this.onSetFullScreen(e, widget.widgetIndex, widget.id, !widget.fullScreen)}
+                                        updateSetting = {(e) => this.onUpdateSetting(e, widget.widgetIndex, widget.id, !widget.editMode)}
+                                        dragColumn = {e => this.onDragColumn(e, widget.widgetIndex, widget.id)}
+                                        dropColumn = {e => this.onDropColumn(e)}
+                                        allowDropColumn = {e => this.onAllowDropColumn(e)}
+                                        changeDS = {e => this.onChangeDS(e, widget.widgetIndex, widget.id, widget.widgetType)}
+                                        changePageIndex = {e => this.onChangePageIndex(e, widget.widgetIndex, widget.id)}
+                                        key={widget.id} 
+                                        widget={widget}/>;
+                                })}
+                                {this.props.editLayout && <NewWidget onAddWidget={this.onAddWidget} widgetIndex="3"/>}
+                            </div>
                         </div>
                     }                                       
                 </div>

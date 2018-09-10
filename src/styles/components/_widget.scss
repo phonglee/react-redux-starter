@@ -69,3 +69,45 @@
 .column-hidden {
     display: none;
 }
+
+.widget-fontsize {
+    font-size: 14px;
+}
+
+.item-text {
+    margin-top: 3px;
+    margin-right: 10px;
+}
+
+.btn-todo {
+    margin-left: 2px;
+    background-color: transparent;
+    border: 1px solid #DFDFDF;
+    cursor: pointer;
+}
+
+.btn-todo:focus {
+    outline: none;
+}
+
+.todo-noborder {
+    border: none;
+}
+.todo-border {
+    border-top: 1px solid #DFDFDF;
+    padding: 5px;
+}
+
+.todo-delete {
+    color: darkred;
+    cursor: pointer;
+}
+
+.todo-completed {
+    color: #d9d9d9;
+    text-decoration: line-through;
+}
+
+.filter-active {
+    border: 1px solid #A6C7FF;
+}
